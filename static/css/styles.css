@@ -1,4 +1,20 @@
+body{
+    background-color: rgb(250, 250, 250);
+}
 p{
     color: #999;
     text-shadow: 
 }
+
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (max-width: 992px) {
+  .brand{
+    margin-left: -100px;
+  }
+  
+  /* On screens that are 600px or less, set the background color to olive */
+  @media screen and (max-width: 600px) {
+    .brand{
+      margin-left: -200px;
+    }
+  }

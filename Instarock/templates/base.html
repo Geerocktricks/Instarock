@@ -15,13 +15,20 @@
     {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Tangerine&amp;subset=cyrillic,cyrillic-ext,latin-ext,vietnamese" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    
   {% endblock %}
 
 </head>
 <body>
-    {% include "navbar.html" %}
-    <div class="container">
-      {% block content %} <p>Posted on {{date|date:"l d-F Y"}}</p> {%endblock%}
+   
+
+    <div class="wrapper">
+        {% include "navbar.html" %}
+      <div class="container">
+        {% block content %} <p>Posted on {{date|date:"l d-F Y"}}</p> {%endblock%}
+      </div>
     </div>
     {% block scripts %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
