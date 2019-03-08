@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http  import HttpResponse,Http404
 import datetime as dt
+from django.shortcuts import render
 # Create your views here.
 def welcome(request):
     '''
@@ -16,7 +17,7 @@ def welcome(request):
             </body>
         </html>
             '''
-    return HttpResponse(  html)
+    return render(request, 'welcome.html')
 
 def convert_dates(dates):
     '''
