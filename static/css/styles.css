@@ -9,7 +9,7 @@ p{
 /* On screens that are 992px or less, set the background color to blue */
 @media screen and (max-width: 992px) {
   .brand{
-    margin-left: -100px;
+    margin-left: -300px;
   }
   
   /* On screens that are 600px or less, set the background color to olive */

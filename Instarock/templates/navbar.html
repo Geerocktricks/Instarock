@@ -9,7 +9,7 @@
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand brand" href=""><i class="fab fa-instagram"></i> <span>|</span> Instarock</a>
+      <a class="navbar-brand brand" href="" href="#default" id="logo" style="color:rgb(27, 26, 26)"><i class="fab fa-instagram"></i> <span>|</span> Instarock</a>
     </div>
   </div>
 </nav>
@@ -20,6 +20,11 @@
     height: 77px;
     transition: .2s ease-in-out;
     background-color: #ffff;
+    overflow: hidden;
+    /* position: fixed; */
+    width: 100%;
+    top: 0;
+    z-index: 99;
   }
   .navbar:hover{
     box-shadow: 0 2px 5px 0 rgba(148, 146, 146, 0.2);
