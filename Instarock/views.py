@@ -3,16 +3,18 @@ from django.http  import HttpResponse,Http404
 import datetime as dt
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.models import user
 # Create your views here.
 def welcome(request):
     '''
     function to display the welcome page
     '''
     date = dt.date.today()
+    # count = user.objects.count()
      # FUNCTION TO CONVERT DATE OBJECT TO FIND EXACT DAY
     day = convert_dates(date)
     
-    return render(request, 'welcome.html' , {"date": date , })
+    return render(request, 'welcome.html' , {"date": date , } )
 
 def convert_dates(dates):
     '''
@@ -55,7 +57,7 @@ def signup(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            return redirect('welcome')
+            return redirect('/accounts/login/')
     else:
         form = UserCreationForm()
     return render(request , 'registration/signup.html', {
