@@ -63,3 +63,9 @@ def signup(request):
     return render(request , 'registration/signup.html', {
         "form":form
     })
+
+def profile(request):
+    '''
+    Function to return the profile page
+    '''
+    return render(request , 'profile.html')
