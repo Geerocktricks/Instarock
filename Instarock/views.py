@@ -45,3 +45,9 @@ def past_days_posts(request,past_date):
         return redirect(news_of_day)
 
     return render(request, 'past_days_posts.html', {"date": date})
+
+def signup(request):
+    '''
+    Function to return the signup page
+    '''
+    return render(request , 'registration/signup.html')
