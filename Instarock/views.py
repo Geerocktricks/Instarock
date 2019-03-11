@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from django.http  import HttpResponse,Http404
 import datetime as dt
 from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 def welcome(request):
     '''
@@ -50,4 +51,13 @@ def signup(request):
     '''
     Function to return the signup page
     '''
-    return render(request , 'registration/signup.html')
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return redirect('welcome')
+    else:
+        form = UserCreationForm()
+    return render(request , 'registration/signup.html', {
+        "form":form
+    })
