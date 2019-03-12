@@ -3,7 +3,12 @@ from django.http  import HttpResponse,Http404
 import datetime as dt
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
-# from django.contrib.auth.models import user
+from django.contrib.auth.models import  User
+from .models import Image,Follow,Comments,Profile,idss
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse,HttpResponseRedirect
+from .forms import ImageForm,ProfileForm
+
 # Create your views here.
 def welcome(request):
     '''
@@ -13,8 +18,21 @@ def welcome(request):
     # count = user.objects.count()
      # FUNCTION TO CONVERT DATE OBJECT TO FIND EXACT DAY
     day = convert_dates(date)
+    if request.method == "POST":
+        form = ImageForm(request.POST)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.user = request.user.username
+            image.save()
+    else:
+        form = ImageForm()
+
+    try:
+        images = Image.objects.all()
+    except Image.DoesNotExist:
+        images = None
     
-    return render(request, 'welcome.html' , {"date": date , } )
+    return render(request, 'welcome.html' , {"date": date , 'images': images, 'form': form })
 
 def convert_dates(dates):
     '''

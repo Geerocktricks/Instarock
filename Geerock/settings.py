@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
+    'pyuploadcare.dj',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'Geerock.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,6 +105,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+UPLOADCARE = {
+    'pub_key': 'eaf645284ae37e83a22f',
+    'secret': '661470ab0346949c6d55',
+}
+
+WSGI_APPLICATION = 'Geerock.wsgi.application'
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -126,3 +135,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 LOGIN_REDIRECT_URL = 'welcome'
+AUTHENTIACTION_BACKENDS = ('instapic.authb.AuthB')
