@@ -31,12 +31,13 @@
     <div class="wrapper">
         {% include "navbar.html" %}
       <div class="container">
-        {% block content %} <p>Posted on {{date|date:"l d-F Y"}}</p> {%endblock%}
-        <p>{{user.username}}</p>
+        {% block content %} <p>Last logged in on {{date|date:"l d-F Y"}}</p> {%endblock%}
+        <p>Logged in as {{user.username}}</p>
       </div>
     </div>
     {% block scripts %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://ucarecdn.com/widget/x.y.z/uploadcare/uploadcare.full.min.js"></script>
      {% bootstrap_javascript %}
     {% endblock %}
     

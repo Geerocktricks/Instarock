@@ -1,0 +1,208 @@
+{% load bootstrap3 %}
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    {% block styles%}
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Tangerine&amp;subset=cyrillic,cyrillic-ext,latin-ext,vietnamese" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+    {% endblock %}
+    {{ form.media }}
+</head>
+
+<body style="overflow-x:hidden">
+    {% include 'navbar.html' %}
+    <div class="container" id="image-section">
+            <!-- Trigger the modal with a button -->
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">+</button>
+                </div>
+                <div class="col-md-6">
+                    <p>Logged in as <b style="color:black;">{{user.username}}</b> </p>
+                </div>
+            </div>
+          
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+              <div class="modal-dialog">
+              
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><i class="fab fa-instagram"></i> <span>|</span> Instarock</h4>
+                  </div>
+                  <div class="modal-body">
+                        <form action="" method="post">
+                                {% csrf_token %}
+                                {{ form }}
+                                <input type="submit" value="Save"/>
+                        </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+        {% for image in images%}
+        <img src="{{image.user.profile.pic}}" alt="">
+        <div class="row mt-3">
+            <div class="col-sm-10 col-md-5 m-auto">
+                <div class="w3-card-4" id="{{image.id}}">
+                    <header class="w3-container">
+                        {% if image.user.profile.pic%}
+                        <img src="../../media/{{image.user.profile.pic}}" alt="" height="40px" width="40px" style="border-radius: 50%;">
+                        {% else %}
+                        <img src="https://www.shareicon.net/data/512x512/2017/05/30/886556_user_512x512.png" alt="" height="40px" width="40px" style="border-radius: 50%;">
+                        {% endif %}
+                        </a>
+                    </header>
+                    <div class="w3-container">
+                        <img src="{{image.image.cdn_url}}" alt="here" class="img-responsive" style="max-height: 400px; width: 100%;">
+                    </div>
+                    <footer class="w3-container">
+                        {% if image.user_has_liked %}
+                        <span onclick="liker('{{image.id}}')" class="likes-btn"><i class="fas fa-heart" style="color: red;border: none;font-size: 20px"></i></span>
+                        {% else %}
+                        <span onclick="liker('{{image.id}}')" class="likes-btn"><i class="far fa-heart" style="font-size: 20px"></i></span>
+                        {% endif %}
+                        <p>{{image.caption}}</p>
+                            {%csrf_token%}
+                            <p class="likes-icon mr-2">{{image.likes.all.count}} likes</p>
+                            <button type="submit" class="btn btn-success like-btn" onclick="liker('{{image.id}}')">Like</button>
+                        </form>
+                        <div class="comments">
+                            {% for comment in image.comments.all %}
+                            <p class="actual-comment">{{comment.user.username}}: {{comment.comm}}</p>
+                            {% endfor %} </div>
+                        <form action="{% url 'comment' %}" method="post" class="form-inline">
+                            {% csrf_token %}
+                            <input type="text" name="comment" id="" class="form-control comment-val" required>
+                            <button type="submit" class="btn btn-sm btn-info comment-btn" onclick="commenter('{{image.id}}')">comment</button>
+                        </form>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        {% endfor%}
+    </div>
+    {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {% bootstrap_javascript %}
+    <script>
+        window.addEventListener("pageshow", function (event) {
+            var historyTraversal = event.persisted ||
+                (typeof window.performance != "undefined" &&
+                    window.performance.navigation.type === 2);
+            if (historyTraversal) {
+                // Handle page restore.
+                window.location.reload();
+            }
+        });
+        $(".like-btn").click((e) => {
+            e.preventDefault()
+        })
+        function liker(id) {
+            image_id = id
+            let icons = document.getElementsByClassName("likes-icon")
+            let btns = document.getElementsByClassName("fa-heart")
+            console.log(icons)
+            console.log(btns)
+            console.log(image_id)
+            $.ajax({
+                "url": "/ajax/like/",
+                "type": "POST",
+                "data": {
+                    "id": image_id,
+                    "csrfmiddlewaretoken": '{{csrf_token}}'
+                },
+                "dataType": "json",
+                "success": function (res) {
+                    let imagess = parseInt(image_id)
+                    imagess -= 1
+                    icons[imagess].innerHTML = res['likes'] + " likes"
+                    if (res["to_red"] == 1) {
+                        alert("Liked")
+                        btns[imagess].classList.remove("far")
+                        btns[imagess].classList.add("fas")
+                        btns[imagess].style.color = "red"
+                    } else {
+                        alert("Unliked")
+                        btns[imagess].classList.remove("fas")
+                        btns[imagess].classList.add("far")
+                        btns[imagess].style.color = "black"
+                    }
+                }
+            })
+        }
+        $(".comment-btn").click(e => {
+            e.preventDefault()
+        })
+        function commenter(id) {
+            let comments = document.getElementsByClassName("comments")
+            let image_id = parseInt(id)
+            let commentVals = document.getElementsByClassName("comment-val")
+            let comment = commentVals[id - 1].value
+            $.ajax({
+                "url": "/ajax/comment/",
+                "type": "POST",
+                "data": {
+                    "id": image_id,
+                    "comment": comment,
+                    "csrfmiddlewaretoken": '{{csrf_token}}'
+                },
+                "dataType": "json",
+                "success": function (res) {
+                    let p = document.createElement("p")
+                    p.setAttribute("class", "actual-comment")
+                    p.textContent = res['user'] + ": " + res["comment"]
+                    comments[image_id - 1].appendChild(p)
+                }
+            })
+            $(".comment-val").val("")
+        }
+        function follower(id) {
+            let image_id = parseInt(id)
+            followBtns = document.getElementsByClassName("follow-btn")
+            $.ajax({
+                "url": "/ajax/follow/",
+                "type": "POST",
+                "data": {
+                    "id": image_id,
+                    "csrfmiddlewaretoken": '{{csrf_token}}'
+                },
+                "dataType": "json",
+                "success": function (res) {
+                    if (res['followed'] == 1) {
+                        followBtns[image_id - 1].innerHTML = "<i class='fas fa-user-check'></i>"
+                    } else {
+                        followBtns[image_id - 1].innerHTML = "<i class='fas fa-user-plus'></i>"
+                    }
+                }
+            })
+        }
+    </script>
+    {% endblock %}
+</body>
+
+</html>

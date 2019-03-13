@@ -4,16 +4,18 @@ import datetime as dt
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import  User
-from .models import Image,Follow,Comments,Profile,idss
+from .models import Image,Follow,Comments,Profile,idss,User
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse,HttpResponseRedirect
-from .forms import ImageForm,ProfileForm
+from .forms import *
 
 # Create your views here.
 def welcome(request):
     '''
     function to display the welcome page
-    '''
+    ''' 
+    user = request.user
+    all_images = []
     date = dt.date.today()
     # count = user.objects.count()
      # FUNCTION TO CONVERT DATE OBJECT TO FIND EXACT DAY
@@ -22,7 +24,7 @@ def welcome(request):
         form = ImageForm(request.POST)
         if form.is_valid():
             image = form.save(commit=False)
-            image.user = request.user.username
+            image.user = user
             image.save()
     else:
         form = ImageForm()

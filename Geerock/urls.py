@@ -19,5 +19,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'',include('Instarock.urls'))
+    url(r'',include('instarock.urls'))
 ]

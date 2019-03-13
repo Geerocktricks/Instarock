@@ -5,8 +5,10 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db import models
 from pyuploadcare.dj.models import ImageField
+from django import forms
 
 #Create your models here
+
 class User(models.Model):
     '''
     Method to create users profile
@@ -50,11 +52,11 @@ class idss(models.Model):
 
 
 class Image(models.Model):
-    image_url = ImageField(blank=True, manual_crop="")    
+    image = ImageField(blank=True, manual_crop="")    
     name = models.CharField(max_length = 31, blank = True)
     caption = models.CharField(max_length = 50, blank = True)
     likes = models.ManyToManyField(User, related_name = "likes", blank = True)
-    user = models.ForeignKey(User, related_name = "posts", blank = True)
+    user = models.ForeignKey(User,null = True , blank = True , on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add = True, blank = True)
 
     def save_image(self):
