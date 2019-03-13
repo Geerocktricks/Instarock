@@ -24,7 +24,6 @@ def welcome(request):
         form = ImageForm(request.POST)
         if form.is_valid():
             image = form.save(commit=False)
-            image.user = user
             image.save()
     else:
         form = ImageForm()
