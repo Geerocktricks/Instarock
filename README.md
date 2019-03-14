@@ -1,6 +1,6 @@
 # Description
 A clone of the popular photo app Instagram.
-##S pecifications
+## Specifications
 ##### As a user of the application I should be able to:
 
 * Sign in to the application to start using.
