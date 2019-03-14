@@ -10,6 +10,7 @@ from django.http import JsonResponse,HttpResponseRedirect
 from .forms import *
 
 # Create your views here.
+@login_required(login_url = '/accounts/login')
 def welcome(request):
     '''
     function to display the welcome page
@@ -88,3 +89,9 @@ def profile(request):
     Function to return the profile page
     '''
     return render(request , 'profile.html')
+
+# def login(request):
+#     '''
+#     Function to return the login page
+#     '''
+#     return render(request ,'registration/login.html' )
