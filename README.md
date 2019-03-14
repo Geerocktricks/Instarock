@@ -1,7 +1,7 @@
-#Description
+# Description
 A clone of the popular photo app Instagram.
-##Specifications
-#####As a user of the application I should be able to:
+##S pecifications
+##### As a user of the application I should be able to:
 
 * Sign in to the application to start using.
 * Upload my pictures to the application.
@@ -9,14 +9,14 @@ A clone of the popular photo app Instagram.
 * Follow other users and see their pictures on my timeline.
 * Like a picture and leave a comment on it.
 
-##Setup/Installation Requirements
+## Setup/Installation Requirements
 Internet connection
 Link to deployed page.
 
-##Known Bugs
+## Known Bugs
 No known bugs
 
-##Technologies used
+## Technologies used
 * certifi==2019.3.9
 * chardet==3.0.4
 * confusable-homoglyphs==3.2.0
@@ -33,7 +33,7 @@ No known bugs
 * six==1.12.0
 * urllib3==1.24.1
 
-##Support and contact details
+## Support and contact details
 Email Address: geerockfac4@gmail.com
-#License and terms of use
+# License and terms of use
 MIT License
